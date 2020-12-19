@@ -6,9 +6,11 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import emailjs from 'emailjs-com';
 import FormHolder from './FormHolder';
+// import Notification from './Notification';
 
 const Form = () => {
   const [type, setType] = useState('Type (Optional)');
+  const [isShowMessage, setIsShowMessage] = useState(false);
 
   const listOfTypes = [
     { type: 'Type (Optional)', key: 0 },
@@ -66,10 +68,13 @@ const Form = () => {
       onSubmit={(values, actions) => {
         sendMessage(values);
         setType('Type (Optional)');
+        setIsShowMessage(true);
+        setTimeout(() => setIsShowMessage(false), 5000);
         actions.resetForm();
       }}
     >
       {(props) => (
+      <>
         <div className="form-box">
           <div className="form-particulars" id="form-particulars">
             <FormHolder classNameToUse="form-particular-error-holder">
@@ -135,6 +140,8 @@ const Form = () => {
             </button>
           </FormHolder>
         </div>
+         {/*<Notification />*/}
+        </>
       )}
     </Formik>
   );
